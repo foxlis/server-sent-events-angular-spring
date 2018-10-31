@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ui';
+  eventData;
+
+  connectEventSource() {
+    const eventSource = new EventSource('http://localhost:8080/progress');
+    eventSource.addEventListener('progressEvent', message => {
+      this.eventData = (<any>message).data;
+    })
+  }
 }
